@@ -1,5 +1,4 @@
 package Servlet;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -7,12 +6,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/show")
-public class ShowServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/LogoutServlet")
+public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setCharacterEncoding("UTF-8");
-        resp.getWriter().write("to show");
+        String username = (String) req.getSession().getAttribute("username");
+        if(username != null) {
+            req.getSession().removeAttribute("username");
+        }
+        resp.sendRedirect("/login.jsp");
     }
 
     @Override

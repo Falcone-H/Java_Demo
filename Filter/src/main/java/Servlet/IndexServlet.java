@@ -7,16 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/show")
-public class ShowServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/")
+public class IndexServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setCharacterEncoding("UTF-8");
-        resp.getWriter().write("to show");
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        String username = (String) req.getSession().getAttribute("username");
+        if(username == null) {
+            resp.sendRedirect("/login.jsp");
+        } else {
+            resp.sendRedirect("/Content/index.jsp");
+        }
     }
 }
